@@ -20,35 +20,33 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 
-public class MainActivity extends AppCompatActivity {
-    Button btn ;
-
+public class PraticienActivity extends AppCompatActivity {
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_praticien);
         btn = (Button)findViewById(R.id.open_activity_button);
 
         GsbService service = RetrofitClientInstance.getRetrofitInstance().create(GsbService.class);
-        Call<Visiteurs> call = service.getAllVisiteurs();
-        call.enqueue(new Callback<Visiteurs>() {
+        Call<Praticiens> call = service.getAllPraticiens();
+        call.enqueue(new Callback<Praticiens>() {
             @Override
-            public void onResponse(Call<Visiteurs> call, Response<Visiteurs> response) {
-                Visiteurs visiteurs = response.body();
+            public void onResponse(Call<Praticiens> call, Response<Praticiens> response) {
+                Praticiens praticiens = response.body();
                 String resultat = "";
-                for (Visiteur v : visiteurs.getVisiteurs()) {
-                    resultat += v.toString();
+                for (Praticien p : praticiens.getPraticiens()) {
+                    resultat += p.toString();
                 }
                 TextView textView = findViewById(R.id.textViewResultat);
                 textView.setText(resultat);
             }
 
             @Override
-            public void onFailure(Call<Visiteurs> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Praticiens> call, Throwable t) {
+                Toast.makeText(PraticienActivity.this, "Quelque chose a mal tourné... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
             }
-
         });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextActivity(){
-        startActivity(new Intent(getApplicationContext(), PraticienActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

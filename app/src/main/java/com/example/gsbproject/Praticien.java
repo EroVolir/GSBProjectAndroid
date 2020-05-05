@@ -70,6 +70,7 @@ public class Praticien implements Serializable {
     public void setId(Integer id){
         this.id = id;
     }
+
     public String getMatricule(){
         return matricule;
     }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GSB Project</string>
+    <string name="TextView1">Votre profil</string>
+    <string name="TextView2">Liste des visites inscrits</string>
+    <string name="TextView3">Liste des praticiens</string>
+    <string name="Button1">Voir Plus</string>
+    <string name="ButtonEdit">Modifier</string>
 </resources>

@@ -8,4 +8,7 @@ public interface GsbService {
 
     @GET("visiteurs.json")
     Call<Visiteurs> getAllVisiteurs();
+
+    @GET("praticiens.json")
+    Call<Praticiens> getAllPraticiens();
 }
