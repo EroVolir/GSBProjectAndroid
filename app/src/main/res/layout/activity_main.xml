@@ -11,12 +11,12 @@ tools:context=".MainActivity">
         android:id="@+id/textViewProfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TextView1" />
+        android:text="@string/TextViewProfil" />
 
     <LinearLayout
         android:id="@+id/profilLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:orientation="vertical">
 
         <TextView
@@ -29,16 +29,16 @@ tools:context=".MainActivity">
         android:id="@+id/textViewVisites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TextView2" />
+        android:text="@string/TextViewVisites" />
 
     <LinearLayout
         android:id="@+id/listVisitesLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textViewVisitesResultat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -47,25 +47,51 @@ tools:context=".MainActivity">
         android:id="@+id/textViewPraticiens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TextView3" />
+        android:text="@string/TextViewPraticiens" />
+
+
+    <SearchView
+        android:id="@+id/SearchViewPraticiens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/listPraticiensLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewPraticiensResultat"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/open_activity_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Button1" />
+            android:text="@string/ButtonSeeMore" />
+
+
+        <Button
+            android:id="@+id/open_add_activity_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ButtonAdd" />
+
+
     </LinearLayout>
 
 

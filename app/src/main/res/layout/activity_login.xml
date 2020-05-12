@@ -4,26 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textViewID"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:text="@string/TextViewID" />
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
+        android:id="@+id/editTextID"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/textViewResultat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/textViewPassword"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:text="@string/TextViewPassword" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Login" />
 
 </LinearLayout>

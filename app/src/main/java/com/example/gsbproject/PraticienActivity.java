@@ -39,7 +39,7 @@ public class PraticienActivity extends AppCompatActivity {
                 for (Praticien p : praticiens.getPraticiens()) {
                     resultat += p.toString();
                 }
-                TextView textView = findViewById(R.id.textViewResultat);
+                TextView textView = findViewById(R.id.textViewResultatPraticien);
                 textView.setText(resultat);
             }
 
