@@ -22,14 +22,21 @@ import retrofit2.http.GET;
 
 public class PraticienActivity extends AppCompatActivity {
     Button btn;
+    String login;
+    String motdepasse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getIntent().getExtras();
+        login = bundle.getString("login");
+        motdepasse = bundle.getString("password");
+
         setContentView(R.layout.activity_praticien);
         btn = (Button)findViewById(R.id.open_activity_button);
 
-        GsbService service = RetrofitClientInstance.getRetrofitInstance().create(GsbService.class);
+        GsbService service = RetrofitClientInstance.getRetrofitInstance(login, motdepasse).create(GsbService.class);
         Call<Praticiens> call = service.getAllPraticiens();
         call.enqueue(new Callback<Praticiens>() {
             @Override
@@ -48,15 +55,15 @@ public class PraticienActivity extends AppCompatActivity {
                 Toast.makeText(PraticienActivity.this, "Quelque chose a mal tourné... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
             }
         });
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextActivity();
-            }
-        });
     }
 
-    public void nextActivity(){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    public void onClickBtnRetour(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("login", login);
+        bundle.putString("password", motdepasse);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

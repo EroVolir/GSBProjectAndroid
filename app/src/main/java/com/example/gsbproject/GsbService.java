@@ -11,4 +11,8 @@ public interface GsbService {
 
     @GET("praticiens.json")
     Call<Praticiens> getAllPraticiens();
+
+    @GET("users.json")
+    Call<Users> Auth();
+
 }

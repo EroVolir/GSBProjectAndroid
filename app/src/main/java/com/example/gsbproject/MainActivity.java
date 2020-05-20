@@ -21,8 +21,9 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 
 public class MainActivity extends AppCompatActivity {
-    Button btn ;
-
+    private Button btn ;
+    private String login;
+    private String motdepasse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn = (Button)findViewById(R.id.open_activity_button);
 
-        GsbService service = RetrofitClientInstance.getRetrofitInstance().create(GsbService.class);
+        Bundle bundle = getIntent().getExtras();
+        login = bundle.getString("login");
+        motdepasse = bundle.getString("password");
+
+        GsbService service = RetrofitClientInstance.getRetrofitInstance(login, motdepasse).create(GsbService.class);
         Call<Visiteurs> call = service.getAllVisiteurs();
+        Call<Praticiens> call2 = service.getAllPraticiens();
+
         call.enqueue(new Callback<Visiteurs>() {
             @Override
             public void onResponse(Call<Visiteurs> call, Response<Visiteurs> response) {
@@ -46,19 +53,40 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Visiteurs> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné pour les visiteurs... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
             }
 
         });
-        btn.setOnClickListener(new View.OnClickListener() {
+
+
+        call2.enqueue(new Callback<Praticiens>() {
             @Override
-            public void onClick(View v) {
-                nextActivity();
+            public void onResponse(Call<Praticiens> call2, Response<Praticiens> response) {
+                Praticiens praticiens = response.body();
+                String resultat = "";
+                for (Praticien p : praticiens.getPraticiens()) {
+                    resultat += p.toString();
+                }
+                //Toast.makeText(MainActivity.this, resultat, Toast.LENGTH_SHORT).show();
+                TextView textView = findViewById(R.id.textViewPraticiensResultat);
+                textView.setText(resultat);
+            }
+
+            @Override
+            public void onFailure(Call<Praticiens> call2, Throwable t2) {
+                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné pour les praticiens... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
-    public void nextActivity(){
-        startActivity(new Intent(getApplicationContext(), PraticienActivity.class));
+    public void onClickBtn(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(), PraticienActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("login", login);
+        bundle.putString("password", motdepasse);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

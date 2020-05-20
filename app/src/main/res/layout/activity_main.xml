@@ -26,24 +26,6 @@ tools:context=".MainActivity">
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewVisites"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/TextViewVisites" />
-
-    <LinearLayout
-        android:id="@+id/listVisitesLayout"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textViewVisitesResultat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <TextView
         android:id="@+id/textViewPraticiens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +63,7 @@ tools:context=".MainActivity">
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickBtn"
             android:text="@string/ButtonSeeMore" />
 
 

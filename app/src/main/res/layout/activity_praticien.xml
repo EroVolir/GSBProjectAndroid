@@ -26,7 +26,23 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textViewVisites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TextViewVisites" />
 
+    <LinearLayout
+        android:id="@+id/listVisitesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewVisitesResultat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttonLayout"
@@ -48,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:onClick="onClickBtnRetour"
             android:text="@string/ButtonReturn" />
 
 
