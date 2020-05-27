@@ -20,8 +20,12 @@ public class Visiteur implements  Serializable {
     private String mail;
     @SerializedName("dateEmbauche")
     private String dateEmbauche;
+    @SerializedName("user_id")
+    private Integer user_id;
+    @SerializedName("User")
+    private User user;
 
-    public Visiteur (Integer id, String matricule, String nom, String prenom, String tel, String mail, String dateEmbauche) {
+    public Visiteur (Integer id, String matricule, String nom, String prenom, String tel, String mail, String dateEmbauche, Integer userId, User user ) {
         this.id = id;
         this.matricule = matricule;
         this.nom = nom;
@@ -29,6 +33,8 @@ public class Visiteur implements  Serializable {
         this.tel = tel;
         this.mail = mail;
         this.dateEmbauche = dateEmbauche;
+        this.user_id = userId;
+        this.user = user;
     }
 
     public String toString(){
@@ -40,6 +46,8 @@ public class Visiteur implements  Serializable {
                 "tel=" + tel + '\'' +
                 "mail=" + mail + '\'' +
                 "dateEmbauche=" + dateEmbauche + '\'' +
+                "userId=" + user_id + '\'' +
+                "user=" + user.toString() + '\'' +
                 '}';
     }
 
@@ -50,6 +58,7 @@ public class Visiteur implements  Serializable {
     public void setId(Integer id){
         this.id = id;
     }
+
     public String getMatricule(){
         return matricule;
     }
@@ -97,6 +106,18 @@ public class Visiteur implements  Serializable {
     public void setDateEmbauche(String dateEmbauche){
         this.dateEmbauche = dateEmbauche;
     }
+
+    public Integer getUserId(){
+        return user_id;
+    }
+
+    public void setUserId(Integer userid){
+        this.user_id = userid;
+    }
+
+    public User getUser() { return user; }
+
+    public void setUser( User user) { this.user = user; }
 
 
 }

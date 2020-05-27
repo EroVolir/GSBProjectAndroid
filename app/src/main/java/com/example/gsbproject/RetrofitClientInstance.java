@@ -32,7 +32,7 @@ public class RetrofitClientInstance {
                 final String encodedString = Base64.getEncoder().encodeToString(encodage.getBytes());
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
-                    Request request = chain.request().newBuilder().addHeader("Authorization", "Basic " + encodedString /*ZGVsYW1hcnJlLnBhdWw6OGNjNTUzMzZkZTk2YmQ5NzIyYjg4YmIxYmFmZmZkYTY4MWVlMWY3MTc1NmQwMDhhY2ZiNTBkMzAxMTVjOWU2OQ==*/).build();
+                    Request request = chain.request().newBuilder().addHeader("Authorization", "Basic " + encodedString ).build();
                     return chain.proceed(request);
                 }
             });

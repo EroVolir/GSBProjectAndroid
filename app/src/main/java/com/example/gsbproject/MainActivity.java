@@ -1,16 +1,20 @@
 package com.example.gsbproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btn ;
     private String login;
     private String motdepasse;
+    private ArrayList<Praticien> dataPraticiens;
+    private RecyclerView recyclerViewPraticiens;
+    private PraticienAdapter praticienAdapter;
+    private GsbService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +43,22 @@ public class MainActivity extends AppCompatActivity {
         login = bundle.getString("login");
         motdepasse = bundle.getString("password");
 
-        GsbService service = RetrofitClientInstance.getRetrofitInstance(login, motdepasse).create(GsbService.class);
+        recyclerViewPraticiens = findViewById(R.id.recyclerviewPraticiens);
+        recyclerViewPraticiens.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewPraticiens.setLayoutManager(layoutManager);
+        recyclerViewPraticiens.setFocusable(false);
+        dataPraticiens = new ArrayList<>();
+
+        recyclerViewPraticiens.addOnItemTouchListener(PraticienTouchListener(this, recyclerViewPraticiens, new PraticienClickListener(){
+            @Override
+            public void onClick(View vies, int position){
+                Intent i = new Intent(getApplicationContext(), PraticienActivity.class);
+                i.putExtra("praticien", dataPraticiens.get(position));
+            }
+        }));
+
+        service = RetrofitClientInstance.getRetrofitInstance(login, motdepasse).create(GsbService.class);
         Call<Visiteurs> call = service.getAllVisiteurs();
         Call<Praticiens> call2 = service.getAllPraticiens();
 
@@ -58,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
+/*
         call2.enqueue(new Callback<Praticiens>() {
             @Override
             public void onResponse(Call<Praticiens> call2, Response<Praticiens> response) {
@@ -77,7 +100,53 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Quelque chose a mal tourné pour les praticiens... Rééssayez plus tard !", Toast.LENGTH_SHORT).show();
             }
         });
+        */
 
+    }
+
+    public void retrofitUsers(final String login){
+        Call<Users> callUsers = service.Auth();
+        callUsers.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> callUsers, Response<Users> response) {
+                Users users = response.body();
+                int userId = 1;
+                for (User u : users.getUsers()){
+                    if(u.getUsername().contentEquals(login)) {
+                        userId = u.getId();
+                    }
+                }
+                retrofitPraticiens(userId);
+            }
+
+            @Override
+            public void onFailure(Call<Users> callUsers, Throwable t) {
+                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné pour la récupération d'UserID", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void retrofitPraticiens(final int id){
+        Call<Praticiens> callPraticiens = service.getAllPraticiens();
+        callPraticiens.enqueue(new Callback<Praticiens>() {
+            @Override
+            public void onResponse(Call<Praticiens> callPraticien, Response<Praticiens> response) {
+                Praticiens praticiens = response.body();
+                for (Praticien p : praticiens.getPraticiens()){
+                    if(p.getVisiteur().getUserId() == id) {
+                        dataPraticiens.add(p);
+                    }
+                }
+                praticienAdapter = new PraticienAdapter(dataPraticiens);
+                recyclerViewPraticiens.setAdapter(praticienAdapter);
+                praticienAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<Praticiens> callPraticien, Throwable t) {
+                Toast.makeText(MainActivity.this, "Quelque chose a mal tourné pour la récupération des Praticiens", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onClickBtn(View v)
@@ -89,4 +158,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
 }

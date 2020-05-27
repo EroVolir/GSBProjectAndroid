@@ -30,8 +30,10 @@ public class Praticien implements Serializable {
     private Integer type_id;
     @SerializedName("visiteur_id")
     private Integer visiteur_id;
+    @SerializedName("visiteur")
+    private Visiteur visiteur;
 
-    public Praticien (Integer id, String matricule, String nom, String prenom, String tel, String mail, String adresse , String codePostal , String ville , Integer specialiteId , Integer typeId , Integer visiteurId) {
+    public Praticien (Integer id, String matricule, String nom, String prenom, String tel, String mail, String adresse , String codePostal , String ville , Integer specialiteId , Integer typeId , Integer visiteurId, Visiteur visiteur) {
         this.id = id;
         this.matricule = matricule;
         this.nom = nom;
@@ -44,6 +46,7 @@ public class Praticien implements Serializable {
         this.specialite_id = specialiteId;
         this.type_id = typeId;
         this.visiteur_id = visiteurId;
+        this.visiteur = visiteur;
     }
 
     public String toString(){
@@ -60,6 +63,7 @@ public class Praticien implements Serializable {
                 "Specialite ID=" + specialite_id + '\'' +
                 "Type ID=" + type_id + '\'' +
                 "Visiteur ID=" + visiteur_id + '\'' +
+                "Visiteur=" + visiteur.toString() + '\'' +
                 '}';
     }
 
@@ -135,5 +139,12 @@ public class Praticien implements Serializable {
         this.ville = ville;
     }
 
+    public int getVisiteurId() {return visiteur_id; }
+
+    public void setVisiteurId(int visiteur) { this.visiteur_id = visiteur; }
+
+    public Visiteur getVisiteur() {return visiteur; }
+
+    public void setVisiteur(Visiteur visiteur) { this.visiteur = visiteur; }
 
 }
